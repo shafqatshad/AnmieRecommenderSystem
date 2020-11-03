@@ -1,19 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from flask_socketio import *
 
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app, logger=True)
 
 # Importing Flask Routes
 from anime_flask.routing.basic.constructors import *
 from anime_flask.routing.basic.basic_db import *
 from anime_flask.routing.core.planets import *
 from anime_flask.routing.core.users import *
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
 
 # @app.websocket_route('/chat')
 # async def websocket_endpoint(websocket: WebSocket):
