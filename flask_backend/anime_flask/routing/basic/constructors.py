@@ -27,12 +27,23 @@ mail = Mail(app)
 # Constructor class for database model
 class User(db.Model):
     __table_name__ = 'users'
+    username = Column(String, unique=True)
     id = Column(Integer, primary_key=True)
-    first_name = Column(String)
-    last_name = Column(String)
+    user_watching = Column(Integer)
+    user_completed = Column(Integer)
+    user_dropped = Column(Integer)
+    user_plantowatch = Column(Integer)
+    user_days_spent_watching = Column(Float)
+    gender = Column(String)
+    location = Column(String)
+    birth_date = Column(String)
+    join_date = Column(String)
+    stats_mean_score = Column(Float)
+    stats_rewatched = Column(Float)
+    stats_episodes = Column(Float)
     email = Column(String, unique=True)
     password = Column(String)
-
+    
 class Planet(db.Model):
     __table_name__ = 'planets'
     planet_id = Column(Integer, primary_key=True)
@@ -45,7 +56,7 @@ class Planet(db.Model):
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields=('id', 'first_name', 'last_name', 'email', 'password')
+        fields=('id', 'username', 'gender', 'location', 'user_watching', 'user_completed', 'user_dropped', 'user_plantowatch', 'user_days_spent_watching', 'birth_date', 'join_date', 'stats_mean_score', 'stats_rewatched', 'stats_episodes')
         
 class PlanetSchema(ma.Schema):
     class Meta:

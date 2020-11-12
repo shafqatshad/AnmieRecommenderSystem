@@ -39,8 +39,9 @@ def db_seed():
     db.session.add(venus)
     db.session.add(earth)
     
-    test_user = User(first_name="William",
-                     last_name = "Herschel",
+    test_user = User(username="William",
+                     gender = "Male",
+                     location="Chicago, Illinois",
                      email="test@test.com",
                      password="Bangfish")
     

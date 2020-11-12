@@ -30,6 +30,10 @@ Jinja2 = "==2.11.2"
 MarkupSafe = "==1.1.1"
 PyJWT = "==1.7.1"
 Werkzeug = "==1.0.1"
+gunicorn = "*"
+eventlet = "*"
+gevent-websocket = "*"
+jupyter = "*"
 
 [requires]
 python_version = "3.8"

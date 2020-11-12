@@ -51,7 +51,7 @@ def update_planet():
         return jsonify(message = "You updated planet " + str(planet.planet_name)), 202
     else:
         return jsonify(message="There is no such planet in dataset"), 404
-    
+     
 @app.route("/remove_planet/<int:planet_id>", methods=["DELETE"])
 @jwt_required
 def remove_planet(planet_id:int):

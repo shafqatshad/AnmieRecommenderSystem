@@ -1,17 +1,25 @@
 from anime_flask import app
 from anime_flask.routing.basic.constructors import *
 
+@app.route("/users", methods=['GET'])
+def users():
+    users_list = User.query.all()
+    result = users_schema.dump(users_list)
+    return jsonify(result)
+
 @app.route('/register', methods=['POST'])
 def register():
     email = request.form['email']
     test = User.query.filter_by(email=email).first()
-    if test:
-        return jsonify(message='That email already exists'), 409
+    username = request.form['username']
+    test1 = User.query.filter_by(username=username).first()
+    if test or test1:
+        return jsonify(message='That email or username already exists'), 409
     else:
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
+        gender = request.form['gender']
         password = request.form['password']
-        user = User(first_name=first_name, last_name=last_name, email=email, password=password)
+        location = request.form['location']
+        user = User(username=username, gender=gender, location=location, email=email, password=password)
         db.session.add(user)
         db.session.commit()
         return jsonify(message='User created successfully'), 201
