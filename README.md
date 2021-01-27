@@ -1,6 +1,11 @@
 # Anmie-Recommender-System
 
 This project uses Angular, FLask Python and SQLite to create a user friendly anime website.
+Since the SQLite data file is too big for github repo (> 1 Gb), here is the source code pushed to gitlab that includes SQLite database
+
+## Demo
+
+https://www.youtube.com/watch?v=AAU1WYZCmIs&t=120s&ab_channel=HiepVo
 
 ## Run Angular frontend
 cd anime-app
