@@ -23,6 +23,7 @@ python -m venv anime_env
 
 ### Activate Environment
 Windows: anime_env\Scripts\activate 
+
 Mac/Linux: source anime_env_linux/bin/activate
 
 ### Install Packages
