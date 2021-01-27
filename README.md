@@ -1,4 +1,4 @@
-# Anmie-Recommender-System
+# Anime-Recommender-System
 
 This project uses Angular, FLask Python and SQLite to create a user friendly anime website.
 
