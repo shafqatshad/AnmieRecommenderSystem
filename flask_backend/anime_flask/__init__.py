@@ -1,15 +1,27 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
+from flask_session import Session
 from flask_cors import CORS
-from flask_socketio import *
+
+import os
+basedir =  os.path.abspath(os.path.dirname(__file__))
+basedir = basedir + "\models\dialogflow\animebot-cbaheo-0c67109ae56b.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = basedir
 
 app = Flask(__name__)
-CORS(app)
+sess = Session()
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
+sess.init_app(app)
+CORS(app)
+    
 # Importing Flask Routes
+from anime_flask.routing.core.before_request import *
 from anime_flask.routing.basic.constructors import *
 from anime_flask.routing.basic.basic_db import *
 from anime_flask.routing.core.planets import *
 from anime_flask.routing.core.users import *
+from anime_flask.routing.core.animes import *
 
 # @app.websocket_route('/chat')
 # async def websocket_endpoint(websocket: WebSocket):

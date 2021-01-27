@@ -3,7 +3,7 @@ python -m venv anime_env
 
 # Activate Virtual Environment
 Windows: anime_env\Scripts\activate
-Mac/Linux: source anime_env/bin/activate
+Mac/Linux: source anime_env_linux/bin/activate
 
 # Install packages
 pipenv install -r requirements.txt

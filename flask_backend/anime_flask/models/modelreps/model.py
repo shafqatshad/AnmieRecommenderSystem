@@ -1,3 +1,5 @@
+from anime_flask import app
+from anime_flask.routing.basic.constructors import *
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,7 +8,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.ticker as ticker
 from sklearn import preprocessing
-from delivery.api.microservice.modelreps.db import first_filtered, genres, user_default, use_cols, response_default, df_model
+from anime_flask.models.modelreps.db import first_filtered, genres, user_default, use_cols, response_default, df_model
 from sklearn.neighbors import KNeighborsClassifier
 
 # KNN with KNeighborsClassifier to predict anime Score
@@ -24,6 +26,9 @@ if 'score' in use_cols:
     use_cols.remove('score')
 if 'title' in use_cols:
     use_cols.remove('title')
+if 'anime_id' in use_cols:
+    use_cols.remove('anime_id')
+    
 X = df_model1[use_cols].values  #.astype(float)
 y = Y[0].values
 #Normalize Data
@@ -48,8 +53,14 @@ def full_id(name):
     except:
         return "This is not a valid full name"
 
-all_names = list(df_model1.title.values)
+def full_name(id):
+    try:
+        df_model1[df_model1["anime_id"] == int(id)].index.tolist()[0]
+        return df_model1[df_model1["anime_id"] == id].index.tolist()[0]
+    except:
+        return "This is not a valid anime id"
 
+all_names = list(df_model1.title.values)
 # If you only know a part of the anime name, you can get the list of possible full anime names, 
 # The input can be lower case
 def part_id(part):
@@ -64,15 +75,26 @@ def part_id(part):
 def similar_animes(query=None,id=None):
     similars = []
     if id:
-        for id in indexs[id][1:]:
-            similars.append(df_model1.iloc[id]["title"])
+        found_id = full_name(id)
+        if found_id == "This is not a valid anime id":
+            similars.append(found_id)
+        else:
+            for id in indexs[found_id][1:]:
+                basics = {}
+                basics['title'] = df_model1.iloc[id]["title"]
+                basics['anime_id'] = str(df_model1.iloc[id]["anime_id"])
+                similars.append(basics)
     if query:
         found_id = full_id(query)
+        print(found_id)
         if found_id == "This is not a valid full name":
             similars.append(found_id)
         else:
             for id in indexs[found_id][1:]:
-                similars.append(df_model1.iloc[id]["title"])
+                basics = {}
+                basics['title'] = df_model1.iloc[id]["title"]
+                basics['anime_id'] = str(df_model1.iloc[id]["anime_id"])
+                similars.append(basics)
     return similars
 
 def anime_score(user_input):
